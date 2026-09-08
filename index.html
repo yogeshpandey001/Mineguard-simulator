@@ -1,1454 +1,217 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MineGuard Safety Simulation</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MineGuard Circuit</title>
+
 <style>
-:root{--bg:#071017;--panel:#10242d;--line:#255563;--cyan:#62e6f4;--gold:#f4c85b;--green:#47df93;--red:#ff5c62;--muted:#91aab0;--white:#edf7f8}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 80% 0,#164455 0,transparent 38%),#071017;color:var(--white);font:14px Arial,sans-serif}
-button{border:1px solid var(--line);background:#071820;color:var(--muted);border-radius:6px;padding:8px 10px;cursor:pointer}
-button:hover,button.active{background:var(--cyan);color:#071017;border-color:var(--cyan)}
-.app{width:min(1450px,calc(100% - 24px));margin:auto;padding:14px 0 30px}
-.top,.card{border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#142d37ee,#061117ee);box-shadow:0 16px 45px #0006}
-.top{padding:15px 18px;display:flex;justify-content:space-between;gap:20px;align-items:center}
-.logo{font-size:20px;font-weight:bold;letter-spacing:5px;color:var(--gold)}
-.small{font:11px monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-.online{color:var(--green);font-weight:bold}
-.intro{padding:28px 3px 17px}
-.intro h1{font-size:clamp(28px,4vw,52px);margin:7px 0;letter-spacing:-2px}
-.intro p{color:var(--muted);max-width:720px;line-height:1.5}
-.columns{display:grid;grid-template-columns:1.55fr .85fr;gap:14px}
-.card{overflow:hidden}
-.title{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;align-items:center;font-weight:bold;letter-spacing:1.5px;font-size:12px}
-.pad{padding:10px}
-canvas{display:block;width:100%;background:#061319;border:1px solid #62e6f444;border-radius:7px}
-#scene{height:min(53vw,550px);min-height:320px}
-#camera{height:230px}
-#radar,#safetyMap{height:205px}
-.controls{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.keys{display:grid;grid-template-columns:repeat(3,36px);gap:4px}
-.keys button{padding:0;width:36px;height:32px;font-weight:bold}
-.keys button:first-child{grid-column:2}
-.keys button:last-child{grid-column:3;grid-row:2}
-.help{flex:1;min-width:190px}
-.scenarios{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
-.scenarios button,.views button{padding:7px 8px;font:10px monospace}
-.scenarios button.active{background:var(--gold);border-color:var(--gold);color:#071017}
-.side{display:grid;gap:14px}
-.risk{padding:15px}
-.risk.safe{--risk:var(--green)}
-.risk.caution{--risk:var(--gold)}
-.risk.danger{--risk:var(--red);animation:pulse 1s infinite}
-.riskline{display:flex;align-items:center;gap:14px}
-.led{width:44px;height:44px;border-radius:50%;background:var(--risk);box-shadow:0 0 24px var(--risk)}
-.level{font-size:25px;font-weight:bold;color:var(--risk);letter-spacing:2px}
-.summary{color:var(--muted);font-size:12px;margin-top:4px}
-@keyframes pulse{50%{box-shadow:0 0 0 2px #ff5c6244,0 14px 45px #f003}}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px}
-.stat{padding:9px;border:1px solid var(--line);border-radius:6px;background:#06151c;min-width:0}
-.stat span{display:block;color:var(--muted);font:10px monospace;text-transform:uppercase}
-.stat b{display:block;margin-top:4px;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cyan{color:var(--cyan)}
-.feed{position:relative}
-.views{position:absolute;top:18px;right:18px;display:flex;gap:3px}
-.views button.active{color:#071017}
-.data{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 0 0}
-.data div{padding:5px;border-bottom:1px solid #25556366;font:11px monospace}
-.data span{color:var(--muted)}
-.data b{float:right;color:var(--cyan)}
-.bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.edge{padding:15px}
-.edge h3{margin:0 0 12px;color:var(--cyan);font:700 12px monospace;letter-spacing:1px}
-.devices{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.devices div{padding:8px;border:1px solid var(--line);color:var(--muted);font:10px monospace}
-.devices b{float:right;color:var(--green)}
-.flow{color:var(--gold);text-align:center;font:11px/2 monospace;margin-top:12px}
-.note{color:var(--muted);font-size:11px;border-left:2px solid var(--gold);padding:8px;margin-top:10px}
-.footer{text-align:center;color:var(--muted);font:11px monospace;line-height:1.7;padding-top:20px;letter-spacing:1px}
-.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;padding:10px 13px;background:#061117;border:1px solid var(--cyan);border-radius:6px;font:11px monospace;transition:.2s;pointer-events:none}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:950px){
-  .columns{grid-template-columns:1fr}
-  .side{grid-template-columns:1fr 1fr}
-  .risk{grid-column:1/-1}
-  .bottom{grid-template-columns:1fr}
+body{
+margin:0;background:#07111a;color:white;
+font-family:Arial;text-align:center
 }
-@media(max-width:650px){
-  .top{align-items:flex-start;flex-direction:column}
-  .side{grid-template-columns:1fr}
-  .risk{grid-column:auto}
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .app{width:calc(100% - 14px)}
-  #scene{height:64vw;min-height:280px}
+h1{color:#20dfff;margin:15px 0 3px}
+p{color:#aaa}
+
+.board{
+position:relative;
+width:1100px;height:650px;
+margin:20px auto;
+background:#0b1924;
+border:2px solid #23556b;
+border-radius:15px;
+overflow:auto;
+box-shadow:0 0 25px #062d3c
 }
+
+.box{
+position:absolute;
+padding:13px 18px;
+border-radius:10px;
+border:2px solid #20dfff;
+background:#102532;
+font-weight:bold;
+z-index:3;
+min-width:120px
+}
+
+.pin{
+font-size:11px;color:#ffd52e;
+display:block;margin-top:5px
+}
+
+.esp{
+left:470px;top:230px;
+width:160px;height:170px;
+border-color:#ffd21f
+}
+
+.battery{left:35px;top:80px;border-color:#ffb51b}
+.buck{left:220px;top:80px;border-color:#ffb51b}
+
+.thermal{left:35px;top:270px}
+.radar{left:35px;top:470px}
+.lidar{left:220px;top:470px}
+
+.mq{right:35px;top:70px}
+.dht{right:35px;top:210px}
+.vibration{right:35px;top:350px}
+.sos{right:35px;top:490px}
+
+.buzzer{
+left:730px;top:470px;
+border-color:#ff4d4d
+}
+
+.led{
+left:730px;top:80px;
+border-color:#48ff75
+}
+
+svg{
+position:absolute;
+top:0;left:0;
+width:1100px;height:650px;
+z-index:1
+}
+
+.wire{
+fill:none;
+stroke-width:3
+}
+
+.power{stroke:#ffb51b}
+.gnd{stroke:#888}
+.data{stroke:#20dfff}
+.alert{stroke:#ff4d4d}
 </style>
 </head>
+
 <body>
 
-<main class="app">
+<h1>🚛 MINEGUARD — HARDWARE CIRCUIT</h1>
+<p>ESP32 based Mining Vehicle Safety System</p>
 
-<header class="top">
-  <div>
-    <div class="logo">MINEGUARD</div>
-    <div class="small">AI-Based Mining Vehicle Safety System</div>
-  </div>
+<div class="board">
 
-  <div class="small">
-    <span class="online">● SIMULATION ONLINE</span>
-    &nbsp; SCENARIO:
-    <b id="scenarioText">NORMAL</b>
-    &nbsp;
-    <span id="clock">--:--:--</span>
-  </div>
-</header>
+<!-- WIRES -->
 
-<section class="intro">
-  <div class="small" style="color:var(--cyan)">SMART INDIA HACKATHON // SIH26007</div>
-  <h1>See → Understand → Predict → Protect</h1>
-  <p>
-    Interactive browser simulation of RGB vision, a dedicated thermal sensor,
-    radar tracking, ESP32 edge processing and time-to-collision risk logic.
-    Hardware communication is not real.
-  </p>
-</section>
+<svg>
 
-<section class="columns">
+<!-- POWER -->
+<path class="wire power" d="M135 125 H220"/>
+<path class="wire power" d="M350 125 H520 V230"/>
 
-<section class="card">
-  <div class="title">
-    LIVE MINE ENVIRONMENT
-    <span class="small">FRONT / SIMULATED 3D VIEW</span>
-  </div>
+<!-- THERMAL -->
+<path class="wire data" d="M135 310 H430 V285 H470"/>
+<!-- RADAR -->
+<path class="wire data" d="M135 510 H400 V350 H470"/>
+<!-- LIDAR -->
+<path class="wire data" d="M320 510 H430 V370 H470"/>
 
-  <div class="pad">
-    <canvas id="scene"></canvas>
+<!-- MQ2 -->
+<path class="wire data" d="M970 105 H700 V285 H630"/>
 
-    <div class="controls">
-      <div class="keys">
-        <button data-control="forward">▲</button>
-        <button data-control="left">◀</button>
-        <button data-control="brake">▼</button>
-        <button data-control="right">▶</button>
-      </div>
+<!-- DHT -->
+<path class="wire data" d="M970 245 H700 V315 H630"/>
 
-      <div class="help small">
-        W / ↑ ACCELERATE · S / ↓ BRAKE · A / D STEER
-      </div>
+<!-- VIBRATION -->
+<path class="wire data" d="M970 385 H700 V345 H630"/>
 
-      <button id="pauseButton">PAUSE</button>
-      <button id="resetButton">RESET</button>
-      <button id="autoButton">AUTO: ON</button>
-    </div>
+<!-- SOS -->
+<path class="wire alert" d="M970 525 H680 V385 H630"/>
 
-    <div class="scenarios">
-      <button class="active" data-scenario="normal">NORMAL</button>
-      <button data-scenario="fog">FOG</button>
-      <button data-scenario="dust">DUST</button>
-      <button data-scenario="night">NIGHT</button>
-      <button data-scenario="person">PERSON CROSSING</button>
-      <button data-scenario="vehicle">VEHICLE APPROACHING</button>
-      <button data-scenario="obstacle">OBSTACLE</button>
-    </div>
-  </div>
-</section>
+<!-- BUZZER -->
+<path class="wire alert" d="M630 400 V530 H730"/>
 
-<aside class="side">
+<!-- LED -->
+<path class="wire alert" d="M630 270 H730 V120"/>
 
-<section class="card risk safe" id="riskCard">
-  <div class="title">
-    AI RISK ENGINE
-    <span class="small">LIVE TTC ANALYSIS</span>
-  </div>
+</svg>
 
-  <div class="risk">
-    <div class="riskline">
-      <div class="led"></div>
 
-      <div>
-        <div class="level" id="riskLevel">SAFE</div>
-        <div class="summary" id="riskSummary">
-          No immediate collision threat detected.
-        </div>
-      </div>
-    </div>
+<div class="box battery">
+🔋 7.4V Battery
+<span class="pin">+ / GND</span>
+</div>
 
-    <div class="stats">
-      <div class="stat">
-        <span>Speed</span>
-        <b class="cyan" id="speedValue">15 km/h</b>
-      </div>
+<div class="box buck">
+⚡ 5V Buck Converter
+<span class="pin">IN: 7.4V → OUT: 5V</span>
+</div>
 
-      <div class="stat">
-        <span>Distance</span>
-        <b id="distanceValue">-- m</b>
-      </div>
 
-      <div class="stat">
-        <span>Object</span>
-        <b id="objectValue">--</b>
-      </div>
+<div class="box thermal">
+🌡️ MLX90640
+<span class="pin">SDA → GPIO 21</span>
+<span class="pin">SCL → GPIO 22</span>
+</div>
 
-      <div class="stat">
-        <span>Relative</span>
-        <b id="relativeValue">-- m/s</b>
-      </div>
+<div class="box radar">
+📡 mmWave Radar
+<span class="pin">OUT → GPIO 33</span>
+</div>
 
-      <div class="stat">
-        <span>TTC</span>
-        <b class="cyan" id="ttcValue">-- sec</b>
-      </div>
+<div class="box lidar">
+📍 LiDAR
+<span class="pin">TX → GPIO 12</span>
+<span class="pin">RX → GPIO 13</span>
+</div>
 
-      <div class="stat">
-        <span>Brake</span>
-        <b id="brakeValue">OFF</b>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="card">
-  <div class="title">
-    DRIVER SENSOR FEED
-    <span class="small">OBJECT DETECTION</span>
-  </div>
+<div class="box esp">
+🧠 ESP32
 
-  <div class="pad feed">
-    <canvas id="camera"></canvas>
+<span class="pin">GPIO 21 → Thermal SDA</span>
+<span class="pin">GPIO 22 → Thermal SCL</span>
+<span class="pin">GPIO 33 → Radar</span>
+<span class="pin">GPIO 12/13 → LiDAR</span>
+<span class="pin">GPIO 34 → MQ-2</span>
+<span class="pin">GPIO 4 → DHT11</span>
+<span class="pin">GPIO 27 → Vibration</span>
+<span class="pin">GPIO 14 → SOS</span>
+<span class="pin">GPIO 26 → Buzzer</span>
+</div>
 
-    <div class="views">
-      <button class="active" data-view="rgb">RGB</button>
-      <button data-view="thermal">THERMAL</button>
-      <button data-view="combined">COMBINED</button>
-    </div>
 
-    <div class="small" id="cameraLabel">
-      RGB CAMERA // SIMULATED SENSOR
-    </div>
-  </div>
-</section>
+<div class="box mq">
+🔥 MQ-2 Gas Sensor
+<span class="pin">Analog → GPIO 34</span>
+</div>
 
-<section class="card">
-  <div class="title">
-    RADAR / DISTANCE SENSOR
-    <span class="small" id="sweep">000°</span>
-  </div>
+<div class="box dht">
+🌡️ DHT11
+<span class="pin">DATA → GPIO 4</span>
+</div>
 
-  <div class="pad">
-    <canvas id="radar"></canvas>
+<div class="box vibration">
+📳 SW-420
+<span class="pin">DO → GPIO 27</span>
+</div>
 
-    <div class="data">
-      <div><span>LOCK</span><b id="radarObject">--</b></div>
-      <div><span>DISTANCE</span><b id="radarDistance">--</b></div>
-      <div><span>DIRECTION</span><b id="radarDirection">--</b></div>
-      <div><span>RELATIVE</span><b id="radarRelative">--</b></div>
-    </div>
-  </div>
-</section>
-
-</aside>
-</section>
-
-<section class="bottom">
-
-<section class="card">
-  <div class="title">
-    TOP-DOWN SAFETY MAP
-    <span class="small">RADAR RANGE 40M</span>
-  </div>
-  <canvas id="safetyMap"></canvas>
-</section>
-
-<section class="card edge">
-  <h3>ESP32 / EDGE CONTROLLER — SIMULATED</h3>
-
-  <div class="devices">
-    <div>ESP32 <b>ONLINE</b></div>
-    <div>RGB CAMERA <b>ONLINE</b></div>
-    <div>THERMAL CAMERA <b>ONLINE</b></div>
-    <div>RADAR <b>ONLINE</b></div>
-    <div>AI ENGINE <b>ONLINE</b></div>
-    <div>LED OUTPUT <b id="ledOutput">SAFE</b></div>
-  </div>
-
-  <div class="flow">
-    CAMERA + THERMAL + RADAR<br>
-    ↓ ESP32 / EDGE ↓ AI DETECTION ↓ TRACKING<br>
-    ↓ TTC / RISK ENGINE ↓ LED + DRIVER ALERT
-  </div>
-
-  <div class="note">
-    Hardware interface simulated in browser —
-    physical ESP32/Arduino integration can be connected later.
-  </div>
-</section>
-
-</section>
-
-<footer class="footer">
-  MINEGUARD · SEE → UNDERSTAND → PREDICT → PROTECT<br>
-  TEAM SENTINEL · SMART INDIA HACKATHON · SIH26007<br>
-  GRAPHIC ERA HILL UNIVERSITY, BHIMTAL CAMPUS
-</footer>
-
-</main>
-
-<div id="toast" class="toast"></div>
-
-<script>
-(function(){
-
-"use strict";
-
-function id(x){
-  return document.getElementById(x);
-}
-
-function all(x){
-  return Array.prototype.slice.call(document.querySelectorAll(x));
-}
-
-var scene = id("scene");
-var camera = id("camera");
-var radar = id("radar");
-var safetyMap = id("safetyMap");
-
-var ctx = {
-  scene: scene.getContext("2d"),
-  camera: camera.getContext("2d"),
-  radar: radar.getContext("2d"),
-  map: safetyMap.getContext("2d")
-};
-
-var PI = Math.PI;
-var TAU = PI * 2;
-
-var clamp = function(n, a, b){
-  return Math.max(a, Math.min(b, n));
-};
-
-var random = function(a, b){
-  return a + Math.random() * (b - a);
-};
-
-var nameOf = {
-  person: "PERSON",
-  vehicle: "MINING TRUCK",
-  rock: "ROCK / OBSTACLE"
-};
-
-var presets = {
-  normal: {
-    speed: 15,
-    objects: [
-      ["person", -0.62, 31, 0],
-      ["vehicle", 0.55, 37, 5],
-      ["rock", 0.18, 27, 0]
-    ]
-  },
-
-  fog: {
-    speed: 12,
-    objects: [
-      ["person", -0.62, 25, 0],
-      ["vehicle", 0.55, 34, 5],
-      ["rock", 0.18, 20, 0]
-    ]
-  },
-
-  dust: {
-    speed: 11,
-    objects: [
-      ["person", -0.62, 25, 0],
-      ["vehicle", 0.55, 34, 5],
-      ["rock", 0.18, 20, 0]
-    ]
-  },
-
-  night: {
-    speed: 14,
-    objects: [
-      ["person", -0.62, 25, 0],
-      ["vehicle", 0.55, 34, 5],
-      ["rock", 0.18, 20, 0]
-    ]
-  },
-
-  person: {
-    speed: 18,
-    objects: [
-      ["person", -1.02, 11, 0, true],
-      ["vehicle", 0.55, 31, 5],
-      ["rock", 0.18, 22, 0]
-    ]
-  },
-
-  vehicle: {
-    speed: 21,
-    objects: [
-      ["person", -0.62, 32, 0],
-      ["vehicle", 0.08, 17, -4, true],
-      ["rock", 0.18, 25, 0]
-    ]
-  },
-
-  obstacle: {
-    speed: 14,
-    objects: [
-      ["person", -0.62, 26, 0],
-      ["vehicle", 0.55, 32, 5],
-      ["rock", 0, 7.5, 0]
-    ]
-  }
-};
-
-var state = {
-  scenario: "normal",
-  view: "rgb",
-  speed: 15,
-  lane: 0,
-  sweep: 0,
-  elapsed: 0,
-  last: performance.now(),
-  paused: false,
-  auto: true,
-  keys: {},
-  touch: {},
-  objects: [],
-  risk: null
-};
-
-function reset(){
-  var preset = presets[state.scenario];
-
-  state.speed = preset.speed;
-  state.lane = 0;
-  state.elapsed = 0;
-
-  state.objects = preset.objects.map(function(item, index){
-    return {
-      id: index,
-      type: item[0],
-      x: item[1],
-      z: item[2],
-      base: item[2],
-      speed: item[3],
-      cross: !!item[4]
-    };
-  });
-}
-
-function canvasSize(canvas, context){
-  var rect = canvas.getBoundingClientRect();
-  var dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  var width = Math.max(1, Math.floor(rect.width * dpr));
-  var height = Math.max(1, Math.floor(rect.height * dpr));
-
-  if(canvas.width !== width || canvas.height !== height){
-    canvas.width = width;
-    canvas.height = height;
-  }
-
-  context.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  return {
-    width: rect.width,
-    height: rect.height
-  };
-}
-
-function isDown(key){
-  return !!(state.keys[key] || state.touch[key]);
-}
-
-function showToast(text){
-  var toast = id("toast");
-
-  toast.textContent = text;
-  toast.classList.add("show");
-
-  clearTimeout(showToast.timer);
-
-  showToast.timer = setTimeout(function(){
-    toast.classList.remove("show");
-  }, 1700);
-}
-
-function updatePhysics(delta){
-  var forward = isDown("forward");
-  var brake = isDown("brake");
-  var left = isDown("left");
-  var right = isDown("right");
-
-  var manual = forward || brake || left || right;
-  var targetSpeed = presets[state.scenario].speed;
-
-  if(forward){
-    state.speed += 14 * delta;
-  }
-
-  if(brake){
-    state.speed -= 22 * delta;
-  }
-
-  if(state.auto && !manual){
-    state.speed += (targetSpeed - state.speed) * delta * 2;
-  }
-
-  state.speed = clamp(state.speed, -8, 34);
-
-  state.lane = clamp(
-    state.lane + ((right ? 1 : 0) - (left ? 1 : 0)) * delta * .45,
-    -.75,
-    .75
-  );
-
-  var vehicleSpeed = Math.max(0, state.speed / 3.6);
-
-  state.objects.forEach(function(object){
-    object.z -= (vehicleSpeed - object.speed) * delta * .75;
-
-    if(object.cross && object.type === "person"){
-      object.x += delta * .23;
-    }
-
-    if(object.z < 1.2 || object.x > 1.15){
-      object.z = object.base + random(-1, 2);
-
-      if(object.cross){
-        object.x = object.type === "person" ? -1.05 : .08;
-      }
-    }
-  });
-
-  state.sweep = (state.sweep + delta * 2) % TAU;
-}
-
-function calculateRisk(){
-  var vehicleSpeed = Math.max(0, state.speed / 3.6);
-
-  state.objects.forEach(function(object){
-    var laneFactor = clamp(
-      1 - Math.abs(object.x - state.lane) * .85,
-      .08,
-      1
-    );
-
-    object.closing = (vehicleSpeed - object.speed) * laneFactor;
-    object.ttc = object.closing > .12
-      ? object.z / object.closing
-      : Infinity;
-
-    object.threat = laneFactor;
-  });
-
-  var candidates = state.objects.filter(function(object){
-    return object.threat > .28;
-  });
-
-  var target = (candidates.length ? candidates : state.objects)
-    .slice()
-    .sort(function(a, b){
-      return a.ttc - b.ttc;
-    })[0];
-
-  if(!target){
-    return null;
-  }
-
-  var level =
-    !isFinite(target.ttc) || target.ttc > 8
-      ? "SAFE"
-      : target.ttc >= 3
-        ? "CAUTION"
-        : "DANGER";
-
-  return {
-    target: target,
-    level: level
-  };
-}
-
-function updateTelemetry(){
-  state.risk = calculateRisk();
-
-  var result = state.risk;
-  var target = result ? result.target : null;
-  var level = result ? result.level : "SAFE";
-  var card = id("riskCard");
-
-  card.className = "card risk " + level.toLowerCase();
-
-  id("riskLevel").textContent = level;
-
-  id("riskSummary").textContent =
-    level === "DANGER"
-      ? "Immediate threat: " + nameOf[target.type] + "."
-      : level === "CAUTION"
-        ? "Monitor " + nameOf[target.type] + " — collision window closing."
-        : "No immediate collision threat detected.";
-
-  id("speedValue").textContent =
-    Math.abs(state.speed).toFixed(0) + " km/h";
-
-  id("distanceValue").textContent =
-    target ? target.z.toFixed(1) + " m" : "-- m";
-
-  id("objectValue").textContent =
-    target ? nameOf[target.type] : "--";
-
-  id("relativeValue").textContent =
-    target
-      ? (target.closing >= 0 ? "-" : "+") +
-        Math.abs(target.closing).toFixed(1) +
-        " m/s"
-      : "-- m/s";
-
-  id("ttcValue").textContent =
-    target && isFinite(target.ttc)
-      ? target.ttc.toFixed(1) + " sec"
-      : "∞ sec";
-
-  id("brakeValue").textContent =
-    isDown("brake") || state.speed < 0
-      ? "ON"
-      : "OFF";
-
-  id("ledOutput").textContent = level;
-
-  id("radarObject").textContent =
-    target ? nameOf[target.type] : "NONE";
-
-  id("radarDistance").textContent =
-    target ? target.z.toFixed(1) + " m" : "--";
-
-  id("radarDirection").textContent =
-    target
-      ? target.x - state.lane < -.08
-        ? "LEFT"
-        : target.x - state.lane > .08
-          ? "RIGHT"
-          : "CENTER"
-      : "--";
-
-  id("radarRelative").textContent =
-    target
-      ? (target.closing >= 0 ? "-" : "+") +
-        Math.abs(target.closing).toFixed(1) +
-        " m/s"
-      : "--";
-}
-
-function project(object, width, height, horizon){
-  var depth = clamp(1 - object.z / 42, 0, 1);
-
-  return {
-    x: width / 2 +
-      (object.x - state.lane) *
-      width *
-      (.12 + depth * .47),
-
-    y: horizon +
-      depth * depth *
-      (height - horizon - 60),
-
-    scale: .25 + depth * 1.15
-  };
-}
-
-function rounded(c, x, y, width, height, radius){
-  c.beginPath();
-
-  if(c.roundRect){
-    c.roundRect(x, y, width, height, radius);
-  }else{
-    c.rect(x, y, width, height);
-  }
-}
-
-function drawTruck(c, width, height){
-  var x = width / 2 + state.lane * width * .23;
-  var y = height * .91;
-  var scale = clamp(width / 700, .6, 1.15);
-
-  c.save();
-  c.translate(x, y);
-  c.scale(scale, scale);
-
-  c.fillStyle = "#d98d32";
-  rounded(c, -125, -76, 250, 88, 12);
-  c.fill();
-
-  c.fillStyle = "#b96727";
-  rounded(c, -105, -112, 210, 57, 12);
-  c.fill();
-
-  c.fillStyle = "#1d373b";
-  rounded(c, -84, -101, 168, 34, 6);
-  c.fill();
-
-  c.strokeStyle = "#62e6f4";
-  c.strokeRect(-80, -97, 160, 25);
-
-  c.fillStyle = "#111";
-  c.beginPath();
-  c.arc(-94, 5, 18, 0, TAU);
-  c.arc(94, 5, 18, 0, TAU);
-  c.fill();
-
-  [
-    [-52, "#62e6f4", "RGB"],
-    [0, "#ff7e50", "TH"],
-    [52, "#47df93", "RD"]
-  ].forEach(function(sensor, index){
-    c.fillStyle = "#071017";
-    c.strokeStyle = sensor[1];
-
-    rounded(c, sensor[0] - 13, -30, 26, 18, 4);
-    c.fill();
-    c.stroke();
-
-    c.fillStyle = sensor[1];
-    c.font = "bold 8px monospace";
-    c.textAlign = "center";
-    c.fillText(sensor[2], sensor[0], -18);
-
-    c.beginPath();
-    c.moveTo(sensor[0], -31);
-    c.lineTo(sensor[0] + (index - 1) * 27, -53);
-    c.stroke();
-
-    c.fillText(
-      index === 0 ? "RGB CAMERA" :
-      index === 1 ? "THERMAL" : "RADAR",
-      sensor[0] + (index - 1) * 27,
-      -59
-    );
-  });
-
-  c.restore();
-}
-
-function drawScene(){
-  var c = ctx.scene;
-  var size = canvasSize(scene, c);
-  var width = size.width;
-  var height = size.height;
-
-  var horizon = height * .34;
-  var night = state.scenario === "night";
-  var fog = state.scenario === "fog";
-  var dust = state.scenario === "dust";
-
-  var sky = c.createLinearGradient(0, 0, 0, height);
-  sky.addColorStop(0, night ? "#040b17" : "#193b43");
-  sky.addColorStop(1, night ? "#16242b" : "#393229");
-
-  c.fillStyle = sky;
-  c.fillRect(0, 0, width, height);
-
-  c.fillStyle = night ? "#101c25" : "#565443";
-  c.beginPath();
-  c.moveTo(0, horizon + 35);
-  c.lineTo(0, horizon - 35);
-  c.lineTo(width * .35, horizon + 20);
-  c.lineTo(width * .43, horizon + 40);
-  c.closePath();
-  c.fill();
-
-  c.beginPath();
-  c.moveTo(width, horizon + 35);
-  c.lineTo(width, horizon - 50);
-  c.lineTo(width * .65, horizon + 20);
-  c.lineTo(width * .57, horizon + 40);
-  c.closePath();
-  c.fill();
-
-  c.fillStyle = night ? "#172227" : "#292c28";
-  c.beginPath();
-  c.moveTo(width * .43, horizon);
-  c.lineTo(width * .57, horizon);
-  c.lineTo(width * 1.1, height);
-  c.lineTo(-.1 * width, height);
-  c.closePath();
-  c.fill();
-
-  c.strokeStyle = "#f4c85b88";
-  c.beginPath();
-  c.moveTo(width * .43, horizon);
-  c.lineTo(-.1 * width, height);
-  c.moveTo(width * .57, horizon);
-  c.lineTo(width * 1.1, height);
-  c.stroke();
-
-  for(var i = 0; i < 8; i++){
-    var p = (i * 14 + state.elapsed * 5) % 100 / 100;
-    var roadY = horizon + p * p * (height - horizon);
-
-    c.fillStyle = "#f4c85b88";
-    c.fillRect(
-      width / 2 - p * 10,
-      roadY,
-      Math.max(2, p * 20),
-      Math.max(2, p * 5)
-    );
-  }
-
-  state.objects
-    .slice()
-    .sort(function(a, b){
-      return b.z - a.z;
-    })
-    .forEach(function(object){
-      var point = project(object, width, height, horizon);
-      var target =
-        state.risk &&
-        state.risk.target.id === object.id;
-
-      c.save();
-
-      if(target){
-        c.shadowColor =
-          state.risk.level === "DANGER"
-            ? "#ff5c62"
-            : "#f4c85b";
-        c.shadowBlur = 15;
-      }
-
-      if(object.type === "person"){
-        var personSize = 12 * point.scale;
-
-        c.fillStyle = "#e6a55d";
-        c.beginPath();
-        c.arc(
-          point.x,
-          point.y - personSize * 1.5,
-          personSize * .35,
-          0,
-          TAU
-        );
-        c.fill();
-
-        c.strokeStyle = "#d9e0d4";
-        c.lineWidth = 2;
-        c.beginPath();
-
-        c.moveTo(
-          point.x,
-          point.y - personSize * 1.2
-        );
-        c.lineTo(
-          point.x,
-          point.y - personSize * .2
-        );
-
-        c.moveTo(
-          point.x,
-          point.y - personSize * .9
-        );
-        c.lineTo(
-          point.x - personSize * .5,
-          point.y - personSize * .5
-        );
-
-        c.moveTo(
-          point.x,
-          point.y - personSize * .9
-        );
-        c.lineTo(
-          point.x + personSize * .5,
-          point.y - personSize * .5
-        );
-
-        c.moveTo(
-          point.x,
-          point.y - personSize * .2
-        );
-        c.lineTo(
-          point.x - personSize * .4,
-          point.y + personSize * .5
-        );
-
-        c.moveTo(
-          point.x,
-          point.y - personSize * .2
-        );
-        c.lineTo(
-          point.x + personSize * .4,
-          point.y + personSize * .5
-        );
-
-        c.stroke();
-      }else if(object.type === "vehicle"){
-        var vehicleWidth = 44 * point.scale;
-        var vehicleHeight = 24 * point.scale;
-
-        c.fillStyle = "#c86d32";
-        rounded(
-          c,
-          point.x - vehicleWidth / 2,
-          point.y - vehicleHeight,
-          vehicleWidth,
-          vehicleHeight,
-          3
-        );
-        c.fill();
-
-        c.fillStyle = "#8db0b2";
-        c.fillRect(
-          point.x - vehicleWidth * .28,
-          point.y - vehicleHeight * .8,
-          vehicleWidth * .56,
-          vehicleHeight * .3
-        );
-      }else{
-        var rockSize = 14 * point.scale;
-
-        c.fillStyle = "#82776a";
-        c.beginPath();
-        c.moveTo(point.x - rockSize, point.y);
-        c.lineTo(point.x - rockSize * .6, point.y - rockSize * .8);
-        c.lineTo(point.x + rockSize * .2, point.y - rockSize);
-        c.lineTo(point.x + rockSize, point.y - rockSize * .2);
-        c.lineTo(point.x + rockSize * .6, point.y);
-        c.closePath();
-        c.fill();
-      }
-
-      if(target){
-        c.strokeStyle =
-          state.risk.level === "DANGER"
-            ? "#ff5c62"
-            : "#f4c85b";
-
-        c.strokeRect(
-          point.x - 28 * point.scale,
-          point.y - 40 * point.scale,
-          56 * point.scale,
-          46 * point.scale
-        );
-      }
-
-      c.restore();
-    });
-
-  drawTruck(c, width, height);
-
-  if(fog || dust){
-    c.fillStyle = fog ? "#d1dbd866" : "#d6a56644";
-    c.fillRect(0, horizon, width, height - horizon);
-  }
-
-  c.fillStyle = "#62e6f4";
-  c.font = "bold 10px monospace";
-  c.fillText("LIVE FRONT VIEW // SIMULATED", 14, 20);
-  c.fillText(
-    "RANGE 40M · TRACKS " +
-    state.objects.length +
-    " · " +
-    state.scenario.toUpperCase(),
-    14,
-    35
-  );
-}
-
-function drawCamera(){
-  var c = ctx.camera;
-  var size = canvasSize(camera, c);
-  var width = size.width;
-  var height = size.height;
-
-  var thermal = state.view === "thermal";
-  var combined = state.view === "combined";
-
-  var gradient = c.createLinearGradient(0, 0, 0, height);
-  gradient.addColorStop(
-    0,
-    thermal
-      ? "#190b3b"
-      : state.scenario === "night"
-        ? "#091324"
-        : "#1c4247"
-  );
-  gradient.addColorStop(
-    1,
-    thermal ? "#ef6820" : "#1c2527"
-  );
-
-  c.fillStyle = gradient;
-  c.fillRect(0, 0, width, height);
-
-  var horizon = height * .34;
-
-  c.fillStyle = thermal
-    ? "#ff773022"
-    : "#111b1c99";
-
-  c.beginPath();
-  c.moveTo(width * .42, horizon);
-  c.lineTo(width * .58, horizon);
-  c.lineTo(width * 1.1, height);
-  c.lineTo(-.1 * width, height);
-  c.fill();
-
-  state.objects.forEach(function(object){
-    var point = project(object, width, height, horizon);
-    var depth = clamp(1 - object.z / 42, 0, 1);
-
-    var boxWidth =
-      (object.type === "person" ? 20 : 44) *
-      (.3 + depth);
-
-    var boxHeight =
-      (object.type === "person" ? 46 : 30) *
-      (.3 + depth);
-
-    var hot =
-      object.type === "person"
-        ? "#fff4a3"
-        : object.type === "vehicle"
-          ? "#ff9b44"
-          : "#a32b55";
-
-    var target =
-      state.risk &&
-      state.risk.target.id === object.id;
-
-    if(thermal || combined){
-      var glow = c.createRadialGradient(
-        point.x,
-        point.y - boxHeight / 2,
-        1,
-        point.x,
-        point.y - boxHeight / 2,
-        boxWidth * 2
-      );
-
-      glow.addColorStop(0, hot + "cc");
-      glow.addColorStop(1, hot + "00");
-
-      c.fillStyle = glow;
-      c.beginPath();
-      c.arc(
-        point.x,
-        point.y - boxHeight / 2,
-        boxWidth * 2,
-        0,
-        TAU
-      );
-      c.fill();
-    }
-
-    if(thermal){
-      c.fillStyle = hot;
-      c.fillRect(
-        point.x - boxWidth * .18,
-        point.y - boxHeight,
-        boxWidth * .36,
-        boxHeight
-      );
-    }else{
-      c.fillStyle =
-        object.type === "vehicle"
-          ? "#b65b2c"
-          : "#d7a05d";
-
-      rounded(
-        c,
-        point.x - boxWidth / 2,
-        point.y - boxHeight,
-        boxWidth,
-        boxHeight,
-        3
-      );
-
-      c.fill();
-    }
-
-    c.strokeStyle =
-      target
-        ? state.risk.level === "DANGER"
-          ? "#ff5c62"
-          : "#f4c85b"
-        : thermal
-          ? hot
-          : "#62e6f4";
-
-    c.lineWidth = target ? 2 : 1;
-
-    c.strokeRect(
-      point.x - boxWidth / 2 - 3,
-      point.y - boxHeight - 3,
-      boxWidth + 6,
-      boxHeight + 6
-    );
-
-    c.fillStyle = c.strokeStyle;
-    c.font = "bold 9px monospace";
-    c.fillText(
-      nameOf[object.type],
-      point.x - boxWidth / 2 - 3,
-      point.y - boxHeight - 8
-    );
-
-    c.fillText(
-      object.z.toFixed(1) + "m",
-      point.x - boxWidth / 2 - 3,
-      point.y + 11
-    );
-  });
-
-  c.strokeStyle = thermal
-    ? "#ffe27c88"
-    : "#62e6f466";
-
-  c.strokeRect(7, 7, width - 14, height - 14);
-
-  c.fillStyle = thermal
-    ? "#ffe27c"
-    : "#c2f4f7";
-
-  c.font = "bold 9px monospace";
-
-  c.fillText(
-    thermal
-      ? "THERMAL CAMERA // HEAT MAP"
-      : combined
-        ? "COMBINED SENSOR FUSION"
-        : "RGB CAMERA // DETECTION",
-    14,
-    20
-  );
-
-  id("cameraLabel").textContent =
-    thermal
-      ? "THERMAL CAMERA // SIMULATED SENSOR"
-      : combined
-        ? "COMBINED VIEW // SENSOR FUSION"
-        : "RGB CAMERA // SIMULATED SENSOR";
-}
-
-function drawRadar(){
-  var c = ctx.radar;
-  var size = canvasSize(radar, c);
-  var width = size.width;
-  var height = size.height;
-
-  var centerX = width / 2;
-  var centerY = height / 2;
-  var radius = Math.min(width, height) * .4;
-
-  c.fillStyle = "#061118";
-  c.fillRect(0, 0, width, height);
-
-  c.strokeStyle = "#47df9355";
-
-  for(var i = 1; i < 5; i++){
-    c.beginPath();
-    c.arc(
-      centerX,
-      centerY,
-      radius * i / 4,
-      0,
-      TAU
-    );
-    c.stroke();
-  }
-
-  c.beginPath();
-  c.moveTo(centerX - radius, centerY);
-  c.lineTo(centerX + radius, centerY);
-  c.moveTo(centerX, centerY - radius);
-  c.lineTo(centerX, centerY + radius);
-  c.stroke();
-
-  c.strokeStyle = "#47df93";
-  c.beginPath();
-  c.moveTo(centerX, centerY);
-  c.lineTo(
-    centerX + Math.cos(state.sweep) * radius,
-    centerY + Math.sin(state.sweep) * radius
-  );
-  c.stroke();
-
-  state.objects.forEach(function(object){
-    var pointX =
-      centerX +
-      clamp(object.x - state.lane, -1, 1) *
-      radius *
-      .7;
-
-    var pointY =
-      centerY -
-      clamp(object.z / 40, 0, 1) *
-      radius;
-
-    var target =
-      state.risk &&
-      state.risk.target.id === object.id;
-
-    c.fillStyle =
-      target
-        ? state.risk.level === "DANGER"
-          ? "#ff5c62"
-          : "#f4c85b"
-        : "#f4c85b";
-
-    c.beginPath();
-    c.arc(pointX, pointY, 4, 0, TAU);
-    c.fill();
-  });
-
-  c.fillStyle = "#62e6f4";
-  c.beginPath();
-  c.moveTo(centerX, centerY + 10);
-  c.lineTo(centerX - 7, centerY + 18);
-  c.lineTo(centerX + 7, centerY + 18);
-  c.fill();
-
-  id("sweep").textContent =
-    String(
-      Math.round(state.sweep * 180 / PI) % 360
-    ).padStart(3, "0") + "°";
-}
-
-function drawMap(){
-  var c = ctx.map;
-  var size = canvasSize(safetyMap, c);
-  var width = size.width;
-  var height = size.height;
-
-  var centerX = width / 2;
-  var centerY = height * .82;
-  var radius = Math.min(width * .42, height * .7);
-
-  c.fillStyle = "#07141b";
-  c.fillRect(0, 0, width, height);
-
-  c.strokeStyle = "#62e6f433";
-
-  for(var i = 1; i < 5; i++){
-    c.beginPath();
-    c.arc(
-      centerX,
-      centerY,
-      radius * i / 4,
-      PI,
-      TAU
-    );
-    c.stroke();
-  }
-
-  state.objects.forEach(function(object){
-    var pointX =
-      centerX +
-      clamp(object.x - state.lane, -1, 1) *
-      radius *
-      .8;
-
-    var pointY =
-      centerY -
-      clamp(object.z / 40, 0, 1) *
-      radius;
-
-    var target =
-      state.risk &&
-      state.risk.target.id === object.id;
-
-    c.fillStyle = target ? "#ff5c62" : "#f4c85b";
-    c.beginPath();
-    c.arc(pointX, pointY, 5, 0, TAU);
-    c.fill();
-  });
-
-  c.fillStyle = "#62e6f4";
-  c.beginPath();
-  c.moveTo(centerX, centerY - 14);
-  c.lineTo(centerX - 9, centerY + 8);
-  c.lineTo(centerX + 9, centerY + 8);
-  c.fill();
-
-  c.fillStyle = "#bff9fc";
-  c.font = "bold 9px monospace";
-  c.textAlign = "center";
-  c.fillText("MINE TRUCK", centerX, centerY + 22);
-  c.textAlign = "left";
-}
-
-function render(){
-  drawScene();
-  drawCamera();
-  drawRadar();
-  drawMap();
-  updateTelemetry();
-
-  id("clock").textContent =
-    new Date().toLocaleTimeString("en-IN", {
-      hour12: false
-    });
-}
-
-function loop(now){
-  var delta = Math.min(
-    .05,
-    (now - state.last) / 1000
-  );
-
-  state.last = now;
-
-  if(!state.paused){
-    state.elapsed += delta;
-    updatePhysics(delta);
-  }
-
-  render();
-  requestAnimationFrame(loop);
-}
-
-all("[data-scenario]").forEach(function(button){
-  button.onclick = function(){
-    state.scenario =
-      button.getAttribute("data-scenario");
-
-    all("[data-scenario]").forEach(function(item){
-      item.classList.toggle(
-        "active",
-        item === button
-      );
-    });
-
-    id("scenarioText").textContent =
-      button.textContent;
-
-    reset();
-    showToast(button.textContent + " SCENARIO LOADED");
-  };
-});
-
-all("[data-view]").forEach(function(button){
-  button.onclick = function(){
-    state.view =
-      button.getAttribute("data-view");
-
-    all("[data-view]").forEach(function(item){
-      item.classList.toggle(
-        "active",
-        item === button
-      );
-    });
-
-    showToast(button.textContent + " VIEW ENABLED");
-  };
-});
-
-all("[data-control]").forEach(function(button){
-  var key =
-    button.getAttribute("data-control");
-
-  button.onpointerdown = function(event){
-    event.preventDefault();
-    state.touch[key] = true;
-    button.classList.add("active");
-  };
-
-  function release(event){
-    event.preventDefault();
-    state.touch[key] = false;
-    button.classList.remove("active");
-  }
-
-  button.onpointerup = release;
-  button.onpointerleave = release;
-  button.onpointercancel = release;
-});
-
-var keymap = {
-  w: "forward",
-  arrowup: "forward",
-  s: "brake",
-  arrowdown: "brake",
-  a: "left",
-  arrowleft: "left",
-  d: "right",
-  arrowright: "right"
-};
-
-window.onkeydown = function(event){
-  var key =
-    keymap[event.key.toLowerCase()];
-
-  if(key){
-    event.preventDefault();
-    state.keys[key] = true;
-  }
-
-  if(event.key === " "){
-    event.preventDefault();
-    id("pauseButton").click();
-  }
-
-  if(event.key.toLowerCase() === "r"){
-    reset();
-  }
-};
-
-window.onkeyup = function(event){
-  var key =
-    keymap[event.key.toLowerCase()];
-
-  if(key){
-    state.keys[key] = false;
-  }
-};
-
-window.onblur = function(){
-  state.keys = {};
-  state.touch = {};
-
-  all("[data-control]").forEach(function(button){
-    button.classList.remove("active");
-  });
-};
-
-id("pauseButton").onclick = function(){
-  state.paused = !state.paused;
-  id("pauseButton").textContent =
-    state.paused ? "RESUME" : "PAUSE";
-
-  showToast(
-    state.paused
-      ? "SIMULATION PAUSED"
-      : "SIMULATION RESUMED"
-  );
-};
-
-id("resetButton").onclick = function(){
-  reset();
-  showToast("SIMULATION RESET");
-};
-
-id("autoButton").onclick = function(){
-  state.auto = !state.auto;
-  id("autoButton").textContent =
-    "AUTO: " + (state.auto ? "ON" : "OFF");
-
-  showToast(
-    "AUTO DEMO " +
-    (state.auto ? "ENABLED" : "DISABLED")
-  );
-};
-
-window.onresize = render;
-
-reset();
-requestAnimationFrame(loop);
-
-})();
-</script>
+<div class="box sos">
+🆘 SOS Button
+<span class="pin">OUT → GPIO 14</span>
+</div>
+
+<div class="box buzzer">
+🔊 Buzzer
+<span class="pin">+ → GPIO 26</span>
+</div>
+
+<div class="box led">
+🚦 Warning LED
+<span class="pin">Risk Indicator</span>
+</div>
+
+</div>
+
+<p>
+🟡 Power &nbsp;&nbsp;
+🔵 Sensor/Data &nbsp;&nbsp;
+🔴 Alert &nbsp;&nbsp;
+⚪ Common GND
+</p>
 
 </body>
 </html>
-```
