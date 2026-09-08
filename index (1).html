@@ -1,0 +1,179 @@
+*mai yogesh pandey hu ye code mera hai maine phone se likha hai mera hi hai*
+
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MINEGUARD — AI-Assisted Mining Vehicle Safety System</title>
+<style>
+:root{--bg:#071016;--panel:#0d1a22;--panel2:#101f29;--line:#23404e;--text:#e9f6fb;--muted:#8ea9b5;--cyan:#24d7ff;--green:#37e38b;--yellow:#ffd34d;--red:#ff4354;--orange:#ff8d3b;--purple:#ad7cff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#17313d,#071016 55%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;overflow-x:hidden}
+button,select,input{font:inherit}button{cursor:pointer;color:var(--text);background:#132833;border:1px solid #2b4d5d;border-radius:9px;padding:9px 12px;transition:.18s}button:hover{background:#1a3542;border-color:#48b8d8;transform:translateY(-1px)}
+header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:rgba(5,13,18,.88);position:sticky;top:0;z-index:20;backdrop-filter:blur(10px)}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(145deg,#183d4c,#0b202a);display:grid;place-items:center;border:1px solid #2e6a7d;box-shadow:0 0 25px #1ccfff33;font-size:25px}.title{font-weight:900;letter-spacing:1.5px;font-size:21px}.sub{font-size:11px;color:var(--muted);margin-top:2px}.statusbar{display:flex;gap:10px;align-items:center}.pill{padding:8px 12px;border:1px solid #2d5262;border-radius:99px;font-size:12px;background:#0c1b23}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);margin-right:7px}.dot.red{background:var(--red);box-shadow:0 0 14px var(--red)}
+main{padding:14px;display:grid;grid-template-columns:1.2fr 1fr 1.1fr;gap:14px;max-width:1700px;margin:auto}.panel{background:linear-gradient(180deg,#0e1c24dd,#09141bdd);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 35px #0008;overflow:hidden}.head{padding:10px 13px;border-bottom:1px solid var(--line);font-size:12px;font-weight:800;letter-spacing:1px;color:#bfe6f3;display:flex;justify-content:space-between;align-items:center}.body{padding:12px}
+.environment{min-height:610px}.mine{height:530px;position:relative;overflow:hidden;background:linear-gradient(#172e38,#0b171d 55%,#11181b);border-radius:10px;border:1px solid #28434c}
+.sky{position:absolute;inset:0 0 52% 0;background:linear-gradient(#16323e,#253b3d);transition:.5s}.road{position:absolute;left:18%;right:18%;top:0;bottom:-10%;background:linear-gradient(90deg,#20292b,#565552 49%,#20292b);clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);box-shadow:inset 0 0 70px #000}.road:after{content:"";position:absolute;left:49.5%;top:0;bottom:0;border-left:5px dashed #d7c77888;animation:roadmove 1.2s linear infinite}@keyframes roadmove{to{transform:translateY(55px)}}.boundary{position:absolute;top:0;bottom:0;width:18%;background:#172228}.bL{left:0}.bR{right:0}.truck{position:absolute;left:50%;bottom:35px;transform:translateX(-50%);width:155px;height:180px;z-index:8;filter:drop-shadow(0 12px 10px #000);transition:.2s}.cab{position:absolute;left:28px;top:8px;width:99px;height:67px;background:linear-gradient(145deg,#d58c27,#6d3d16);border:3px solid #e7a640;border-radius:13px 13px 7px 7px}.wind{position:absolute;left:40px;top:17px;width:75px;height:30px;background:#132c37;border:2px solid #6da0ae;border-radius:5px}.bed{position:absolute;left:13px;top:68px;width:130px;height:48px;background:linear-gradient(#68421f,#9b6127);clip-path:polygon(10% 0,100% 0,88% 100%,0 100%);border:2px solid #b77a31}.wheel{position:absolute;width:35px;height:35px;border-radius:50%;background:#090c0d;border:6px solid #37454a;bottom:10px;box-shadow:0 0 0 2px #080b0c}.w1{left:15px}.w2{right:15px}.sensor{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);z-index:12}.sr{top:3px;left:73px}.sl{top:72px;left:77px}.st{top:57px;left:112px}.sg{top:89px;left:67px}.mine .label{position:absolute;z-index:10;background:#061016cc;border:1px solid #2c5664;padding:4px 7px;border-radius:6px;font-size:10px;color:#bfe6f3}.label.radar{top:12px;left:10px}.label.lidar{top:48px;left:10px}.label.thermal{top:84px;left:10px}.weatherLayer{position:absolute;inset:0;pointer-events:none;z-index:9}.fog{background:radial-gradient(circle,#dffaff55,#dffaff18 45%,transparent 75%);opacity:0;transition:.5s}.night{background:rgba(1,4,16,.68);opacity:0;transition:.5s}.dust{background:repeating-radial-gradient(circle at 30% 60%,#b27d3840 0 2px,transparent 3px 17px);opacity:0;animation:dust 4s linear infinite}@keyframes dust{to{transform:translateX(100px)}}.rain{background:repeating-linear-gradient(110deg,transparent 0 13px,#9cd8ff66 14px 16px,transparent 17px 28px);opacity:0;animation:rain .35s linear infinite}@keyframes rain{to{background-position:20px 70px}}.obs{position:absolute;z-index:11;transform:translate(-50%,-50%);transition:left .15s linear}.rock{width:31px;height:25px;background:#777;border-radius:45% 55% 35% 50%;box-shadow:inset 6px -4px #555}.vehicle{width:44px;height:28px;background:#b66d24;border:2px solid #e6a148;border-radius:5px}.worker{width:10px;height:27px;background:#ddd;border-radius:6px;box-shadow:0 -7px 0 3px #ddd}.obbox{outline:2px solid var(--red);outline-offset:5px;box-shadow:0 0 22px var(--red)}.odist{position:absolute;left:50%;top:-25px;transform:translateX(-50%);white-space:nowrap;font-size:10px;background:#071016dd;border:1px solid #3d6572;border-radius:5px;padding:2px 5px}.envBtns,.controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.demo button{font-size:10px}.controls button{font-size:11px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}.card{background:#0b1820;border:1px solid #203b48;border-radius:10px;padding:9px;position:relative;overflow:hidden}.card.active{border-color:#3cd8a0;box-shadow:0 0 20px #24d7ff16}.card.danger{border-color:#ff4354aa;box-shadow:0 0 20px #ff435422}.ct{font-size:10px;color:#91afbb}.cv{font-size:20px;font-weight:900;margin:4px 0}.cs{font-size:10px}.pin{position:absolute;right:7px;top:7px;font-size:9px;color:#55c8e5}.signal{height:3px;background:#1d3440;margin-top:8px;overflow:hidden}.signal i{display:block;height:100%;width:35%;background:var(--cyan);animation:signal .8s linear infinite}@keyframes signal{to{transform:translateX(190%)}}.dashboard{display:grid;grid-template-columns:1fr 1fr;gap:10px}.risk{grid-column:1/-1;text-align:center;border:1px solid #31505c;border-radius:13px;padding:15px;background:#09151b}.riskBig{font-size:34px;font-weight:1000;letter-spacing:2px}.gauge{height:8px;background:#182b34;border-radius:99px;overflow:hidden}.gauge i{display:block;height:100%;width:40%;background:var(--green);transition:.3s}.metric{background:#0b1820;border:1px solid #203b48;border-radius:9px;padding:9px}.metric b{font-size:16px}.small{font-size:10px;color:var(--muted)}.leds{display:flex;gap:12px;justify-content:center;margin:10px 0}.led{text-align:center;font-size:9px}.lamp{width:22px;height:22px;border-radius:50%;margin:auto auto 5px;background:#20282b;border:2px solid #39454a}.lamp.on.green{background:var(--green);box-shadow:0 0 20px var(--green)}.lamp.on.yellow{background:var(--yellow);box-shadow:0 0 20px var(--yellow)}.lamp.on.red{background:var(--red);box-shadow:0 0 20px var(--red)}.lamp.on.emergency{background:#fff;border-color:var(--red);box-shadow:0 0 30px var(--red);animation:flash .45s infinite}@keyframes flash{50%{opacity:.25}}.architecture{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px}.arch{width:100%;padding:6px;text-align:center;border:1px solid #2a4a58;border-radius:7px;background:#0b1920}.arrow{color:#40c9e7}.log{height:155px;overflow:auto;font:10px ui-monospace,monospace;color:#9ec1cc;background:#061015;padding:8px;border-radius:8px;border:1px solid #1d3743}.log div{padding:3px 0;border-bottom:1px dashed #18313b}.envctrl{display:grid;grid-template-columns:1fr 1fr;gap:7px}.field{background:#0a171e;border:1px solid #203b47;border-radius:8px;padding:7px}.field label{font-size:9px;color:#88a7b2;display:block;margin-bottom:4px}.field select,.field input[type=range]{width:100%;background:#0d2029;color:white}.field output{font-size:10px;color:#54d6f4}.circuit{grid-column:1/-1}.circuitWrap{height:340px;position:relative;overflow:auto;background:#071116;border-radius:10px;border:1px solid #203d49}.component{position:absolute;background:linear-gradient(#142934,#0c1920);border:1px solid #356070;border-radius:9px;padding:8px;text-align:center;font-size:10px;box-shadow:0 7px 15px #0008;z-index:3}.component b{display:block;font-size:11px}.esp{left:48%;top:115px;width:110px;height:125px;border-color:#51a5bc}.battery{left:2%;top:30px}.buck{left:18%;top:30px}.rad{left:33%;top:15px}.lid{left:48%;top:15px}.therm{left:63%;top:15px}.gas{left:78%;top:15px}.dht{left:33%;bottom:25px}.vib{left:48%;bottom:25px}.sos{left:63%;bottom:25px}.buzz{left:78%;bottom:25px}.lora{left:2%;bottom:25px}.wire{stroke:#e94a4a;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-dasharray:8 6;animation:wire 1.2s linear infinite;opacity:.65}.wire.blue{stroke:#49a9ff}.wire.green{stroke:#36d88a}.wire.yellow{stroke:#f6db48}.wire.purple{stroke:#ad7cff}.wire.cyan{stroke:#29d7ed}.wire.hot{filter:drop-shadow(0 0 5px currentColor);stroke-width:4;opacity:1}@keyframes wire{to{stroke-dashoffset:-28}}.packet{fill:#fff;filter:drop-shadow(0 0 5px #fff);animation:packet 1.3s linear infinite}.hidden{display:none!important}.dangerText{color:var(--red)}.yellowText{color:var(--yellow)}.greenText{color:var(--green)}.cyanText{color:var(--cyan)}.sosBtn{background:#5c1620;border-color:#e84a5c;font-weight:900;width:100%;font-size:14px}.sosBtn:hover{background:#7c1b27}.footerNote{font-size:9px;color:#6f8994;text-align:center;margin-top:8px}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}.circuit{grid-column:1/-1}}@media(max-width:760px){main{grid-template-columns:1fr}.circuit{grid-column:auto}header{position:relative}.cards{grid-template-columns:1fr}.environment{min-height:auto}.mine{height:470px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">🚛</div><div><div class="title">MINEGUARD</div><div class="sub">AI-ASSISTED MINING VEHICLE SAFETY SYSTEM</div></div></div>
+  <div class="statusbar">
+    <div class="pill"><span id="sysDot" class="dot"></span>SYSTEM: <b id="sysStatus">READY</b></div>
+    <button id="startBtn">▶ START SIMULATION</button>
+    <button id="soundBtn">🔊 SOUND OFF</button>
+  </div>
+</header>
+
+<main>
+<section class="panel environment">
+  <div class="head">⛏ LIVE MINE ENVIRONMENT <span id="modeLabel">AUTO MODE</span></div>
+  <div class="body">
+    <div class="mine" id="mine">
+      <div class="sky" id="sky"></div><div class="boundary bL"></div><div class="boundary bR"></div><div class="road"></div>
+      <div class="label radar">📡 RADAR FIELD</div><div class="label lidar">🔵 LiDAR ToF</div><div class="label thermal">🌡 THERMAL FOV</div>
+      <div class="truck" id="truck">
+        <div class="cab"><div class="wind"></div></div><div class="bed"></div>
+        <div class="wheel w1"></div><div class="wheel w2"></div>
+        <i class="sensor sr" title="Radar"></i><i class="sensor sl" title="LiDAR"></i><i class="sensor st" title="Thermal"></i><i class="sensor sg" title="Gas"></i>
+      </div>
+      <div class="weatherLayer fog" id="fog"></div><div class="weatherLayer rain" id="rain"></div><div class="weatherLayer dust" id="dust"></div><div class="weatherLayer night" id="night"></div>
+      <div id="obstacles"></div>
+    </div>
+    <div class="envBtns">
+      <button onclick="addObstacle('rock')">＋ ROCK</button><button onclick="addObstacle('vehicle')">＋ VEHICLE</button><button onclick="addObstacle('worker')">＋ WORKER</button><button onclick="addObstacle(randomType())">＋ RANDOM</button><button onclick="clearObstacles()">CLEAR OBSTACLES</button>
+    </div>
+    <div class="controls">
+      <button onclick="preset('normal')">NORMAL</button><button onclick="preset('fog')">FOGGY</button><button onclick="preset('rain')">RAINY</button><button onclick="preset('night')">NIGHT</button><button onclick="preset('dust')">DUSTY</button><button onclick="resetAll()">🔄 RESET</button><button onclick="toggleManual()">⚙ MANUAL MODE</button>
+    </div>
+    <div class="envctrl" style="margin-top:9px">
+      <div class="field"><label>WEATHER</label><select id="weather"><option>Clear</option><option>Fog</option><option>Rain</option><option>Dust Storm</option></select></div>
+      <div class="field"><label>TIME</label><select id="time"><option>Day</option><option>Evening</option><option>Night</option></select></div>
+      <div class="field"><label>VISIBILITY <output id="visOut">100%</output></label><input id="visibility" type="range" min="10" max="100" value="100"></div>
+      <div class="field"><label>TEMPERATURE <output id="tempOut">28°C</output></label><input id="temp" type="range" min="-10" max="60" value="28"></div>
+      <div class="field"><label>HUMIDITY <output id="humOut">60%</output></label><input id="hum" type="range" min="0" max="100" value="60"></div>
+      <div class="field"><label>GAS LEVEL <output id="gasOut">120 ppm</output></label><input id="gas" type="range" min="0" max="1000" value="120"></div>
+      <div class="field"><label>VIBRATION <output id="vibOut">12%</output></label><input id="vib" type="range" min="0" max="100" value="12"></div>
+      <div class="field"><label>TRUCK SPEED <output id="speedOut">8 km/h</output></label><input id="speed" type="range" min="0" max="25" value="8"></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="head">📡 LIVE SENSOR TELEMETRY <span class="cyanText">ESP32 ONLINE</span></div>
+  <div class="body">
+    <div class="cards">
+      <div class="card" id="radarCard"><span class="pin">GPIO 33</span><div class="ct">📡 mmWave RADAR</div><div class="cv" id="radarVal">—</div><div class="cs" id="radarStatus">Scanning</div><div class="signal"><i></i></div></div>
+      <div class="card" id="lidarCard"><span class="pin">TX12 / RX13</span><div class="ct">🔵 LiDAR / ToF</div><div class="cv" id="lidarVal">—</div><div class="cs" id="lidarStatus">Scanning</div><div class="signal"><i></i></div></div>
+      <div class="card" id="thermalCard"><span class="pin">SDA21 / SCL22</span><div class="ct">🌡 MLX90640 THERMAL</div><canvas id="thermal" width="180" height="80" style="width:100%;height:72px;margin-top:5px;border-radius:6px"></canvas><div class="cs" id="thermalStatus">Heat map active</div></div>
+      <div class="card" id="gasCard"><span class="pin">GPIO 34</span><div class="ct">🔥 MQ-2 GAS</div><div class="cv" id="gasVal">120 ppm</div><div class="cs" id="gasStatus">SAFE</div><div class="signal"><i></i></div></div>
+      <div class="card"><span class="pin">GPIO 4</span><div class="ct">💧 DHT11</div><div class="cv" id="dhtVal">28.0°C</div><div class="cs" id="dhtStatus">Humidity 60%</div><div class="signal"><i></i></div></div>
+      <div class="card" id="vibCard"><span class="pin">GPIO 27</span><div class="ct">📳 SW-420</div><div class="cv" id="vibVal">12%</div><div class="cs" id="vibStatus">NORMAL</div><div class="signal"><i></i></div></div>
+      <div class="card" id="sosCard"><span class="pin">GPIO 14</span><div class="ct">🚨 SOS INPUT</div><div class="cv" id="sosVal">READY</div><div class="cs">Digital input</div></div>
+      <div class="card"><span class="pin">TX17 / RX16</span><div class="ct">📶 LoRa LINK</div><div class="cv" id="loraVal">CONNECTED</div><div class="cs" id="loraStatus">Standby</div><div class="signal"><i></i></div></div>
+    </div>
+    <div style="margin-top:10px" class="risk" id="riskBox"><div class="small">AI-ASSISTED DECISION ENGINE — SIMULATION</div><div class="riskBig" id="riskText">SAFE</div><div class="small">Detection confidence <b id="confidence">96%</b></div><div class="gauge"><i id="riskGauge"></i></div></div>
+    <div class="leds">
+      <div class="led"><div class="lamp on green" id="ledGreen"></div>SAFE</div><div class="led"><div class="lamp" id="ledYellow"></div>CAUTION</div><div class="led"><div class="lamp" id="ledRed"></div>DANGER</div><div class="led"><div class="lamp" id="ledEmergency"></div>EMERGENCY</div>
+    </div>
+    <button class="sosBtn" id="sosBtn">🚨 SOS EMERGENCY BUTTON</button>
+    <button style="width:100%;margin-top:7px" onclick="resetSOS()">RESET SOS</button>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="head">🚛 DRIVER DASHBOARD <span id="alertBadge">MONITORING</span></div>
+  <div class="body">
+    <div class="dashboard">
+      <div class="metric"><div class="small">SPEED</div><b id="dashSpeed">8 km/h</b></div>
+      <div class="metric"><div class="small">OBSTACLE DISTANCE</div><b id="dashDist">—</b></div>
+      <div class="metric"><div class="small">VISIBILITY</div><b id="dashVis">100%</b></div>
+      <div class="metric"><div class="small">TEMPERATURE</div><b id="dashTemp">28°C</b></div>
+      <div class="metric"><div class="small">HUMIDITY</div><b id="dashHum">60%</b></div>
+      <div class="metric"><div class="small">GAS</div><b id="dashGas">120 ppm</b></div>
+      <div class="metric"><div class="small">VIBRATION</div><b id="dashVib">12%</b></div>
+      <div class="metric"><div class="small">OBJECT</div><b id="dashObj">NONE</b></div>
+      <div class="risk" style="grid-column:1/-1"><div class="small">VEHICLE SAFETY STATUS</div><div class="riskBig" id="vehicleStatus">SAFE</div></div>
+    </div>
+    <div class="architecture" style="margin-top:10px">
+      <div class="arch">SENSING LAYER — RADAR + LiDAR + THERMAL + GAS + DHT11 + VIBRATION</div><div class="arrow">↓ DATA FUSION</div><div class="arch">ESP32 CONTROLLER</div><div class="arrow">↓</div><div class="arch">AI-ASSISTED DECISION ENGINE</div><div class="arrow">↓</div><div class="arch">RISK ASSESSMENT</div><div class="arrow">↓</div><div class="arch">LOCAL WARNING + DASHBOARD + LoRa ALERT</div>
+    </div>
+    <div class="panel" style="margin-top:10px;border-color:#264b59"><div class="head">📶 LoRa CONTROL ROOM LINK</div><div class="body" style="padding:8px"><div class="small">LOCAL VEHICLE → LoRa TX GPIO17 → REMOTE CONTROL ROOM</div><div id="loraMessage" style="font-weight:800;margin:6px 0">NORMAL</div><div id="packetTrack" style="height:20px;background:#071016;border:1px solid #1f3d49;border-radius:8px;overflow:hidden;position:relative"><span id="packet" style="position:absolute;left:-20px;top:5px;width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 12px #fff"></span></div></div></div>
+    <div class="panel" style="margin-top:10px"><div class="head">📜 LIVE EVENT LOG</div><div class="body" style="padding:7px"><div class="log" id="log"></div></div></div>
+    <div class="demo controls"><button onclick="demo('normal')">🎬 DEMO 1 — NORMAL</button><button onclick="demo('fog')">🎬 DEMO 2 — FOG</button><button onclick="demo('night')">🎬 DEMO 3 — NIGHT + HUMAN</button><button onclick="demo('gas')">🎬 DEMO 4 — GAS</button><button onclick="demo('vibration')">🎬 DEMO 5 — VIBRATION</button><button onclick="demo('sos')">🎬 DEMO 6 — SOS</button><button onclick="demo('multi')">🎬 DEMO 7 — MULTI-HAZARD</button></div>
+  </div>
+</section>
+
+<section class="panel circuit">
+<div class="head">🔌 LIVE HARDWARE / WIRING VISUALIZATION <span class="cyanText">DATA FLOW ACTIVE</span></div>
+<div class="body">
+<div class="circuitWrap" id="circuit">
+<svg id="wires" width="100%" height="100%" viewBox="0 0 1200 340" preserveAspectRatio="none" style="position:absolute;inset:0;z-index:2">
+<path id="w1" class="wire" d="M95 63 C180 63 230 110 580 170"/><path id="w2" class="wire" d="M235 63 C320 63 350 110 580 170"/>
+<path id="w3" class="wire purple" d="M425 52 C490 90 500 130 580 160"/><path id="w4" class="wire cyan" d="M595 52 C600 95 590 120 580 160"/><path id="w5" class="wire green" d="M775 52 C700 90 650 130 580 160"/><path id="w6" class="wire yellow" d="M945 52 C800 90 700 140 580 170"/>
+<path id="w7" class="wire green" d="M390 290 C460 265 500 235 580 225"/><path id="w8" class="wire blue" d="M595 290 C595 265 590 250 580 225"/><path id="w9" class="wire" d="M785 290 C700 260 650 245 580 225"/><path id="w10" class="wire orange" d="M950 290 C780 270 680 245 580 225"/>
+<path id="w11" class="wire" d="M70 290 C160 245 230 230 580 170"/><path id="w12" class="wire" d="M110 63 L155 63"/><path id="w13" class="wire" d="M155 63 L225 63"/>
+</svg>
+<div class="component battery"><b>🔋 7.4V</b>18650 BATTERY</div><div class="component buck"><b>⚡ 5V BUCK</b>5V OUTPUT</div><div class="component rad"><b>📡 RADAR</b>OUT → GPIO33</div><div class="component lid"><b>🔵 LiDAR</b>TX12 / RX13</div><div class="component therm"><b>🌡 MLX90640</b>SDA21 / SCL22</div><div class="component gas"><b>🔥 MQ-2</b>A0 → GPIO34</div>
+<div class="component esp"><b>ESP32</b>AI / DECISION<br>ENGINE<br><small>Common GND</small></div><div class="component dht"><b>💧 DHT11</b>DATA → GPIO4</div><div class="component vib"><b>📳 SW-420</b>DO → GPIO27</div><div class="component sos"><b>🚨 SOS</b>OUT → GPIO14</div><div class="component buzz"><b>🔊 BUZZER</b>OUT → GPIO26</div><div class="component lora"><b>📶 LoRa</b>TX17 / RX16</div>
+</div>
+<div class="footerNote">Reference pin map: MQ-2→34 • DHT11→4 • SW-420→27 • SOS→14 • Buzzer→26 • LoRa TX/RX→17/16 • LiDAR TX/RX→12/13 • Thermal SDA/SCL→21/22 • Radar OUT→33 • 7.4V→5V Buck→modules</div>
+</div>
+</section>
+</main>
+
+<script>
+const S={running:false,sound:false,sos:false,manual:false,weather:'Clear',time:'Day',vis:100,temp:28,hum:60,gas:120,vib:12,speed:8,obs:[],id:0,lastRisk:'SAFE',lastLog:0,beepTimer:null};
+const $=id=>document.getElementById(id);
+function log(msg){let t=new Date().toLocaleTimeString();let d=document.createElement('div');d.textContent=t+' — '+msg;$('log').prepend(d);while($('log').children.length>80)$('log').lastChild.remove()}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randomType(){return ['rock','vehicle','worker'][Math.floor(Math.random()*3)]}
+function addObstacle(type='rock',distance=rand(5,32)){let id=++S.id;let e=document.createElement('div');e.className='obs '+type;e.dataset.id=id;e.innerHTML='<span class="odist"></span>';e.title=type.toUpperCase();$('obstacles').appendChild(e);let o={id,type,distance,speed:rand(.08,.22),el:e};S.obs.push(o);renderObstacle(o);log('Obstacle added: '+type.toUpperCase()+' at '+distance.toFixed(1)+'m');return o}
+function renderObstacle(o){let d=Math.max(2,Math.min(40,o.distance));let y=8+(1-d/40)*72;let x=50+({rock:-8,vehicle:8,worker:0}[o.type]||0);o.el.style.left=x+'%';o.el.style.top=y+'%';o.el.querySelector('.odist').textContent=d.toFixed(1)+' m';}
+function clearObstacles(){S.obs=[];$('obstacles').innerHTML='';log('All obstacles cleared')}
+function closest(){return S.obs.length?S.obs.reduce((a,b)=>a.distance<b.distance?a:b):null}
+function setWeather(){let w=$('weather').value,t=$('time').value;S.weather=w;S.time=t;S.vis=+$('visibility').value;S.temp=+$('temp').value;S.hum=+$('hum').value;S.gas=+$('gas').value;S.vib=+$('vib').value;applyEnv();syncOutputs()}
+function applyEnv(){let v=S.vis/100;$('fog').style.opacity=S.weather==='Fog'?(1-v)*.95:0;$('rain').style.opacity=S.weather==='Rain'?.75:0;$('dust').style.opacity=S.weather==='Dust Storm'?.75:0;$('night').style.opacity=S.time==='Night'?.9:S.time==='Evening'?.35:0;$('sky').style.filter=S.time==='Night'?'brightness(.35)':S.time==='Evening'?'brightness(.65)':'none'}
+function syncOutputs(){$('visOut').textContent=S.vis+'%';$('tempOut').textContent=S.temp+'°C';$('humOut').textContent=S.hum+'%';$('gasOut').textContent=Math.round(S.gas)+' ppm';$('vibOut').textContent=Math.round(S.vib)+'%';$('speedOut').textContent=S.speed+' km/h';$('dashSpeed').textContent=S.speed+' km/h';$('dashVis').textContent=S.vis+'%';$('dashTemp').textContent=S.temp.toFixed(1)+'°C';$('dashHum').textContent=Math.round(S.hum)+'%';$('dashGas').textContent=Math.round(S.gas)+' ppm';$('dashVib').textContent=Math.round(S.vib)+'%'}
+function riskEngine(){let o=closest(),dist=o?o.distance:99;let gas=S.gas,v=S.vib;let r='SAFE',score=0;if(dist<=5)score=90;else if(dist<=10)score=72;else if(dist<=20)score=42;else score=8;if(gas>=700)score=Math.max(score,82);else if(gas>=450)score=Math.max(score,52);if(v>=80)score=Math.max(score,82);else if(v>=55)score=Math.max(score,55);if(S.sos)score=100;let confidence=Math.round(Math.min(99,72+score*.25+(o?15:0)-(100-S.vis)*.12));if(S.sos)r='EMERGENCY';else if(score>=80)r='CRITICAL';else if(score>=65)r='DANGER';else if(score>=35)r='CAUTION';else r='SAFE';return {r,score,confidence,dist,o}}
+function update(){syncOutputs();let x=riskEngine(),danger=x.r==='DANGER'||x.r==='CRITICAL',hazardGas=S.gas>=450,hazardV=S.vib>=55;
+$('radarVal').textContent=x.o?x.dist.toFixed(1)+' m':'—';$('lidarVal').textContent=x.o?Math.max(.1,x.dist+rand(-.25,.25)).toFixed(1)+' m':'—';$('radarStatus').textContent=x.o?'OBJECT DETECTED':'CLEAR';$('lidarStatus').textContent=x.o?'CONFIDENCE '+Math.min(99,Math.round(90+(S.vis-50)/5))+'%':'SCANNING';
+$('gasVal').textContent=Math.round(S.gas)+' ppm';$('gasStatus').textContent=gasStatus();$('dhtVal').textContent=(S.temp+rand(-.3,.3)).toFixed(1)+'°C';$('dhtStatus').textContent='Humidity '+Math.round(S.hum)+'%';$('vibVal').textContent=Math.round(S.vib)+'%';$('vibStatus').textContent=S.vib>=80?'CRITICAL':S.vib>=55?'WARNING':'NORMAL';
+$('dashDist').textContent=x.o?x.dist.toFixed(1)+' m':'—';$('dashObj').textContent=x.o?x.o.type.toUpperCase():'NONE';$('confidence').textContent=x.confidence+'%';$('riskText').textContent=x.r;$('vehicleStatus').textContent=x.r;
+let cls=x.r==='SAFE'?'green':(x.r==='CAUTION'?'yellow':'red');$('riskGauge').style.width=x.score+'%';$('riskGauge').style.background=x.r==='SAFE'?'var(--green)':x.r==='CAUTION'?'var(--yellow)':'var(--red)';
+$('riskBox').style.borderColor=x.r==='SAFE'?'#31505c':x.r==='CAUTION'?'#b18c2c':'#a52c3a';$('vehicleStatus').style.color=x.r==='SAFE'?'var(--green)':x.r==='CAUTION'?'var(--yellow)':'var(--red)';
+document.querySelectorAll('.lamp').forEach(e=>e.classList.remove('on'));if(S.sos)$('ledEmergency').classList.add('on');else if(x.r==='SAFE')$('ledGreen').classList.add('on');else if(x.r==='CAUTION')$('ledYellow').classList.add('on');else $('ledRed').classList.add('on');
+$('sysStatus').textContent=S.sos?'EMERGENCY':x.r; $('sysDot').className='dot '+((danger||S.sos)?'red':'');$('alertBadge').textContent=S.sos?'SOS ALERT':x.r==='SAFE'?'MONITORING':x.r+' WARNING';
+$('sosVal').textContent=S.sos?'PRESSED':'READY';$('loraStatus').textContent=(danger||hazardGas||hazardV||S.sos)?'ALERT TRANSMITTED':'Standby';$('loraMessage').textContent=S.sos?'SOS EMERGENCY':hazardGas?'GAS ALERT':hazardV?'VIBRATION ALERT':danger?'COLLISION WARNING':x.o?'OBSTACLE DETECTED':'NORMAL';
+['radarCard','lidarCard'].forEach(id=>$(id).classList.toggle('danger',danger));$('gasCard').classList.toggle('danger',hazardGas);$('vibCard').classList.toggle('danger',hazardV);$('sosCard').classList.toggle('danger',S.sos);
+wireActivity(danger||hazardGas||hazardV||S.sos);
+if(x.r!==S.lastRisk){if(x.r==='CAUTION')log('AI risk changed to CAUTION');if(danger)log('DANGER WARNING ACTIVATED');if(x.r==='SAFE'&&S.lastRisk!=='SAFE')log('System returned to SAFE');S.lastRisk=x.r}
+if(danger&&!S.lastDanger){log('Buzzer ON — collision warning');sendLora('COLLISION WARNING')}if(!danger&&S.lastDanger){log('Buzzer OFF');}S.lastDanger=danger;
+if(hazardGas&&!S.lastGas){log('MQ-2 gas alert');sendLora('GAS ALERT')}S.lastGas=hazardGas;if(hazardV&&!S.lastVib){log('SW-420 vibration alert');sendLora('VIBRATION ALERT')}S.lastVib=hazardV;
+handleSound(x)}
+function gasStatus(){return S.gas>=700?'CRITICAL':S.gas>=450?'WARNING':'SAFE'}
+function wireActivity(hot){document.querySelectorAll('.wire').forEach(e=>e.classList.toggle('hot',hot));}
+function sendLora(msg){$('loraMessage').textContent=msg;let p=$('packet');p.style.transition='none';p.style.left='0px';requestAnimationFrame(()=>{p.style.transition='left 1.1s linear';p.style.left='calc(100% - 12px)'});setTimeout(()=>p.style.left='-20px',1200);log('LoRa alert transmitted: '+msg)}
+function handleSound(x){if(!S.sound)return;clearTimeout(S.beepTimer);if(S.sos){beep(880,.16);S.beepTimer=setTimeout(()=>handleSound(x),230);return}let ms=x.dist<=5?180:x.dist<=10?300:x.r==='CAUTION'?900:0;if(ms){beep(x.r==='CAUTION'?600:900,.1);S.beepTimer=setTimeout(()=>handleSound(x),ms)}}
+let audioCtx;function beep(freq,dur){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=freq;o.type='square';g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.07,audioCtx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+dur+.02)}catch(e){}}
+function toggleSound(){S.sound=!S.sound;$('soundBtn').textContent=S.sound?'🔊 SOUND ON':'🔊 SOUND OFF';if(S.sound){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume();}catch(e){}beep(660,.08)}else clearTimeout(S.beepTimer)}
+function toggleManual(){S.manual=!S.manual;$('modeLabel').textContent=S.manual?'MANUAL MODE':'AUTO MODE';log(S.manual?'Manual control enabled':'Auto mode enabled')}
+function preset(p){if(p==='normal'){S.weather='Clear';S.time='Day';S.vis=100;S.gas=120;S.vib=12}if(p==='fog'){S.weather='Fog';S.time='Day';S.vis=25}if(p==='rain'){S.weather='Rain';S.time='Day';S.vis=55}if(p==='night'){S.weather='Clear';S.time='Night';S.vis=45}if(p==='dust'){S.weather='Dust Storm';S.time='Day';S.vis=20}$('weather').value=S.weather;$('time').value=S.time;$('visibility').value=S.vis;$('gas').value=S.gas;$('vib').value=S.vib;applyEnv();syncOutputs();log('Environment preset: '+p.toUpperCase())}
+function resetSOS(){S.sos=false;log('SOS reset — system monitoring');}
+function resetAll(){S.sos=false;S.weather='Clear';S.time='Day';S.vis=100;S.temp=28;S.hum=60;S.gas=120;S.vib=12;S.speed=8;clearObstacles();$('weather').value='Clear';$('time').value='Day';$('visibility').value=100;$('temp').value=28;$('hum').value=60;$('gas').value=120;$('vib').value=12;$('speed').value=8;applyEnv();syncOutputs();S.lastRisk='SAFE';log('System reset')}
+$('sosBtn').onclick=()=>{S.sos=true;S.running=true;log('SOS BUTTON PRESSED — EMERGENCY MODE');sendLora('SOS EMERGENCY');try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume()}catch(e){}};
+$('startBtn').onclick=()=>{S.running=!S.running;$('startBtn').textContent=S.running?'⏸ PAUSE':'▶ START SIMULATION';$('sysStatus').textContent=S.running?'ACTIVE':'PAUSED';if(S.running){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();audioCtx.resume()}catch(e){}log('System initialized — simulation active')}};
+$('soundBtn').onclick=toggleSound;
+['weather','time'].forEach(id=>$(id).onchange=setWeather);['visibility','temp','hum','gas','vib','speed'].forEach(id=>$(id).oninput=setWeather);
+function thermal(){let c=$('thermal'),ctx=c.getContext('2d'),w=c.width,h=c.height;let img=ctx.createImageData(w,h);let o=closest(),hot=o&&(o.type==='worker'||o.type==='vehicle');for(let y=0;y<h;y++)for(let x=0;x<w;x++){let base=35+Math.sin(x/19+y/13)*7+Math.random()*9;if(hot){let dx=x-w*.5,dy=y-h*.55;let heat=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/45)*190;base+=heat}let r=Math.min(255,base*3),g=Math.min(255,Math.max(0,base*1.7-35)),b=Math.max(0,170-base*2);let i=(y*w+x)*4;img.data[i]=r;img.data[i+1]=g;img.data[i+2]=b;img.data[i+3]=255}ctx.putImageData(img,0,0);$('thermalStatus').textContent=hot?'HOT SIGNATURE DETECTED':'Heat map active'}
+function demo(kind){resetSOS();clearObstacles();if(kind==='normal'){preset('normal');addObstacle('rock',26)}if(kind==='fog'){preset('fog');addObstacle('rock',8)}if(kind==='night'){preset('night');addObstacle('worker',7)}if(kind==='gas'){preset('normal');S.gas=720;$('gas').value=720}if(kind==='vibration'){preset('normal');S.vib=85;$('vib').value=85}if(kind==='sos'){preset('normal');setTimeout(()=>$('sosBtn').click(),400)}if(kind==='multi'){preset('fog');S.gas=650;S.vib=72;$('gas').value=650;$('vib').value=72;addObstacle('worker',6);addObstacle('rock',14)}syncOutputs();S.running=true;$('startBtn').textContent='⏸ PAUSE';log('Demo scenario started: '+kind.toUpperCase())}
+function tick(){if(S.running){S.obs.forEach(o=>{if(!S.manual)o.distance-=S.speed*.0015+o.speed;if(o.distance<2)o.distance=32;renderObstacle(o);});if(!S.manual){S.gas=Math.max(0,S.gas+rand(-4,4));S.vib=Math.max(0,Math.min(100,S.vib+rand(-2.5,2.5)));S.temp+=rand(-.12,.12);S.hum=Math.max(0,Math.min(100,S.hum+rand(-.5,.5)));$('gas').value=S.gas;$('vib').value=S.vib;$('temp').value=S.temp;$('hum').value=S.hum}update()}else thermal();}
+setInterval(tick,180);setInterval(thermal,420);
+log('System initialized — click START SIMULATION');syncOutputs();applyEnv();thermal();
+</script>
+</body>
+</html>
